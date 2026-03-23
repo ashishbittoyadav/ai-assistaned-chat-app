@@ -1,4 +1,10 @@
 # ai-assistaned-chat-app
 ## 📸 Screenshots
 
-![App Screenshot](screenshots/app_preview.png)
+## 📸 Screenshots
+
+### Home Screen
+![Home](screenshots/home.png)
+
+### Chat Screen
+![Chat](screenshots/chat.png)
