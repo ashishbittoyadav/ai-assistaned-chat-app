@@ -5,11 +5,6 @@ import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
 
-
-abstract class ApiResponse{
-
-}
-
 open class AIResponse(
     open val response: String
 ): ApiResponse()

@@ -2,8 +2,10 @@ import com.android.tools.build.jetifier.core.config.Config
 
 plugins {
     alias(libs.plugins.android.application)
-    alias(libs.plugins.kotlin.android)
+//    alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.android.hilt)
+    alias(libs.plugins.ksp)
 }
 
 android {
@@ -35,10 +37,10 @@ android {
         sourceCompatibility = JavaVersion.VERSION_21
         targetCompatibility = JavaVersion.VERSION_21
     }
-    kotlinOptions {
-        // Kotlin compiler toolchain
-
-    }
+//    kotlinOptions {
+//        // Kotlin compiler toolchain
+//
+//    }
 
     buildFeatures {
         compose = true
@@ -66,5 +68,8 @@ dependencies {
     implementation(libs.converter.gson)
     implementation(libs.logging.interceptor)
     implementation(libs.logging.interceptor.v4120)
-    implementation("androidx.navigation:navigation-compose:2.7.7")
+    implementation(libs.androidx.navigation.compose)
+
+    implementation(libs.hilt.android)
+    ksp(libs.hilt.compiler)
 }

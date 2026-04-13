@@ -23,7 +23,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -32,16 +31,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.ashish.ollama_chat_application.model.ChatMessage
-import com.ashish.ollama_chat_application.network.AIResponse
-import com.ashish.ollama_chat_application.network.ApiResponse
+import com.ashish.ollama_chat_application.network.ChatMessage
 import com.ashish.ollama_chat_application.network.ChatRequest
-import com.ashish.ollama_chat_application.network.RetrofitInstance
 import com.ashish.ollama_chat_application.view_model.ChatUiState
 import com.ashish.ollama_chat_application.view_model.ChatViewModel
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 @Composable
 fun ChatScreen(innerPadding: PaddingValues, viewModel: ChatViewModel) {

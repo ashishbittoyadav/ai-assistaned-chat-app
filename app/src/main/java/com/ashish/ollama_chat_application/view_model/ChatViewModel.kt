@@ -5,29 +5,25 @@ import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.remember
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.ashish.ollama_chat_application.model.ChatMessage
 import com.ashish.ollama_chat_application.network.AIResponse
-import com.ashish.ollama_chat_application.network.ApiResponse
 import com.ashish.ollama_chat_application.network.ChatHistory
+import com.ashish.ollama_chat_application.network.ChatMessage
 import com.ashish.ollama_chat_application.network.ChatRequest
 import com.ashish.ollama_chat_application.repository.ChatRepository
+import com.ashish.ollama_chat_application.uiState.ChatUiState
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Response
+import javax.inject.Inject
 
-sealed interface ChatUiState {
-    data class ChatResponse(val data: ApiResponse) : ChatUiState
-    data class HistoryState(val history: List<ChatHistory>): ChatUiState
-    object Loading : ChatUiState
-    data class Error(val error: String) : ChatUiState
 
-    object Initial : ChatUiState
-}
+@HiltViewModel
+class ChatViewModel @Inject constructor() : ViewModel() {
 
-class ChatViewModel() : ViewModel() {
-
-    private val chatRepository: ChatRepository= ChatRepository();
+    @Inject
+    lateinit var chatRepository: ChatRepository
 
     var chatUiState = MutableStateFlow<ChatUiState>(ChatUiState.Initial)
 

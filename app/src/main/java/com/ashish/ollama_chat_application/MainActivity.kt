@@ -22,6 +22,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.core.view.WindowCompat.enableEdgeToEdge
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
@@ -31,13 +32,15 @@ import com.ashish.ollama_chat_application.screen.ChatHistory
 import com.ashish.ollama_chat_application.screen.ChatScreen
 import com.ashish.ollama_chat_application.ui.theme.Ollama_chat_applicationTheme
 import com.ashish.ollama_chat_application.view_model.ChatViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            val viewModel : ChatViewModel = viewModel()
+            val viewModel : ChatViewModel by viewModels()
 
             Ollama_chat_applicationTheme {
                 Scaffold(

@@ -1,4 +1,4 @@
-package com.ashish.ollama_chat_application.model
+package com.ashish.ollama_chat_application.network
 
 data class ChatMessage(
     val message: String,
