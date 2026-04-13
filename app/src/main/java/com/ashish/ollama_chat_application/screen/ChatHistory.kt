@@ -28,7 +28,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.ashish.ollama_chat_application.view_model.ChatUiState
+import com.ashish.ollama_chat_application.uiState.ChatUiState
 import com.ashish.ollama_chat_application.view_model.ChatViewModel
 
 

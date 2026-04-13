@@ -33,7 +33,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.ashish.ollama_chat_application.network.ChatMessage
 import com.ashish.ollama_chat_application.network.ChatRequest
-import com.ashish.ollama_chat_application.view_model.ChatUiState
+import com.ashish.ollama_chat_application.uiState.ChatUiState
 import com.ashish.ollama_chat_application.view_model.ChatViewModel
 
 @Composable
