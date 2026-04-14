@@ -5,3 +5,8 @@ data class ChatMessage(
     val sessionId: String,
     val isUser: Boolean
 )
+//data class ChatMessage(
+//    val message: String="",
+//    val sessionId: String="",
+//    val isUser: Boolean=false
+//)

@@ -1,6 +1,5 @@
 package com.ashish.ollama_chat_application.screen
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -43,18 +42,19 @@ fun ChatScreen(innerPadding: PaddingValues, viewModel: ChatViewModel) {
 
     val uiState by viewModel.chatUiState.collectAsState()
 
-    Column(modifier = Modifier
-        .background(MaterialTheme.colorScheme.onPrimaryFixedVariant)
-        .fillMaxSize()
-        .padding(innerPadding)) {
+    Column(
+        modifier = Modifier
+            .background(MaterialTheme.colorScheme.onPrimaryFixedVariant)
+            .fillMaxSize()
+            .padding(innerPadding)
+    ) {
         LazyColumn(
             state = listState,
             modifier = Modifier
                 .weight(1f)
                 .padding(8.dp)
         ) {
-            items(items = viewModel.messages){
-                    msg ->
+            items<ChatMessage>(items = viewModel.messages) { msg ->
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -76,9 +76,9 @@ fun ChatScreen(innerPadding: PaddingValues, viewModel: ChatViewModel) {
             }
         }
         LaunchedEffect(viewModel.messages.size) {
-            if (viewModel.messages.isNotEmpty()) {
+//            if (viewModel.messages.isNotEmpty()) {
                 listState.animateScrollToItem(viewModel.messages.size - 1)
-            }
+//            }
         }
         Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
             BasicTextField(
@@ -92,9 +92,9 @@ fun ChatScreen(innerPadding: PaddingValues, viewModel: ChatViewModel) {
             )
             Button(onClick = {
                 if (text.isNotBlank()) {
-                    val userMsg = ChatMessage(text, "ashish",true)
+                    val userMsg = ChatMessage(text, "ashish", true)
                     viewModel.messages.add(userMsg)
-                    viewModel.sendMessageToAi(ChatRequest(text,userMsg.sessionId))
+                    viewModel.sendMessageToAi(ChatRequest(text, userMsg.sessionId))
                     text = ""
                 }
             }) {
@@ -103,7 +103,7 @@ fun ChatScreen(innerPadding: PaddingValues, viewModel: ChatViewModel) {
         }
     }
 
-    when(uiState){
+    when (uiState) {
         is ChatUiState.ChatResponse -> {}
         is ChatUiState.Error -> {}
         is ChatUiState.HistoryState -> {}

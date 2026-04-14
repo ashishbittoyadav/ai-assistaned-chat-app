@@ -7,14 +7,14 @@ import com.ashish.ollama_chat_application.network.*
 import retrofit2.Call
 import javax.inject.Inject
 
-class ChatRepository @Inject constructor(val retrofitInstance: RetrofitInstance) {
+class ChatRepository @Inject constructor(val chatApi: ChatApi) {
 
     suspend fun getHistory(): Call<List<ChatHistory>> {
-        return retrofitInstance.getApi().getHistory()
+        return chatApi.getHistory()
     }
 
     suspend fun chatWithLlama(request: ChatRequest):Call<AIResponse>{
-        return retrofitInstance.getApi().sendMessage(request)
+        return chatApi.sendMessage(request)
     }
 
 }
