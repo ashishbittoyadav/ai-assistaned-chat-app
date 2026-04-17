@@ -1,6 +1,7 @@
 package com.ashish.ollama_chat_application
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -22,16 +23,17 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.core.view.WindowCompat.enableEdgeToEdge
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.ashish.ollama_chat_application.screen.ChatHistory
 import com.ashish.ollama_chat_application.screen.ChatScreen
+import com.ashish.ollama_chat_application.screen.DragonBallZDetailScreen
+import com.ashish.ollama_chat_application.screen.DragonBallZScreen
 import com.ashish.ollama_chat_application.ui.theme.Ollama_chat_applicationTheme
 import com.ashish.ollama_chat_application.view_model.ChatViewModel
+import com.ashish.ollama_chat_application.view_model.DragonBallZViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -41,6 +43,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             val viewModel : ChatViewModel by viewModels()
+            val dragonBallViewModel : DragonBallZViewModel by viewModels()
 
             Ollama_chat_applicationTheme {
                 Scaffold(
@@ -58,7 +61,7 @@ class MainActivity : ComponentActivity() {
                         )
                     }
                 ) { innerPadding ->
-                    NavigationStack(innerPadding,viewModel)
+                    NavigationStack(innerPadding,viewModel,dragonBallViewModel)
                 }
             }
         }
@@ -66,13 +69,18 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun NavigationStack(innerPadding: PaddingValues, viewModel: ChatViewModel) {
+fun NavigationStack(innerPadding: PaddingValues, viewModel: ChatViewModel,dragonBallZViewModel: DragonBallZViewModel) {
     val navController = rememberNavController()
 
     NavHost(navController = navController, startDestination = "start_screen") {
         composable("chat_history") { ChatHistory(innerPadding,viewModel) }
         composable(route = "chat") { ChatScreen(innerPadding,viewModel) }
         composable(route = "start_screen") { StartScreen(innerPadding,navController) }
+        composable(route = "dragon_ball_z") { DragonBallZScreen(innerPadding,dragonBallZViewModel,navController) }
+        composable(route = "dragon_ball_z_detail/{id}") { backStackEntry ->
+            val id = backStackEntry.arguments?.getString("id")
+            DragonBallZDetailScreen(innerPadding,dragonBallZViewModel,id)
+        }
     }
 }
 
@@ -106,6 +114,14 @@ fun StartScreen(innerPadding: PaddingValues, navController: NavController) {
             }
         ) {
             Text("Chat History",
+                style = MaterialTheme.typography.titleMedium.copy(color = MaterialTheme.colorScheme.inversePrimary))
+        }
+        Button(
+            onClick = {
+                navController.navigate("dragon_ball_z")
+            }
+        ) {
+            Text("Dragon Ball Z",
                 style = MaterialTheme.typography.titleMedium.copy(color = MaterialTheme.colorScheme.inversePrimary))
         }
     }

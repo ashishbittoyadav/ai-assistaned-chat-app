@@ -76,9 +76,9 @@ fun ChatScreen(innerPadding: PaddingValues, viewModel: ChatViewModel) {
             }
         }
         LaunchedEffect(viewModel.messages.size) {
-//            if (viewModel.messages.isNotEmpty()) {
+            if (viewModel.messages.isNotEmpty()) {
                 listState.animateScrollToItem(viewModel.messages.size - 1)
-//            }
+            }
         }
         Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
             BasicTextField(
