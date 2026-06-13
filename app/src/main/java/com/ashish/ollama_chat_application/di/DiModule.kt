@@ -2,6 +2,7 @@ package com.ashish.ollama_chat_application.di
 
 import com.ashish.ollama_chat_application.api_annotation.AIChatApiAnnotation
 import com.ashish.ollama_chat_application.api_annotation.DragonBallApiAnnotation
+import com.ashish.ollama_chat_application.interceptor.RetryInterceptor
 import com.ashish.ollama_chat_application.network.ChatApi
 import com.ashish.ollama_chat_application.network.DragonBallZApi
 import com.ashish.ollama_chat_application.repository.ChatRepository
@@ -37,6 +38,7 @@ class DiModule {
             .addInterceptor(HttpLoggingInterceptor().apply {
                 level = HttpLoggingInterceptor.Level.BODY
             })
+            .addInterceptor(RetryInterceptor(maxRetries = 3))
             .connectTimeout(120, TimeUnit.SECONDS)
             .readTimeout(120, TimeUnit.SECONDS)
             .writeTimeout(120, TimeUnit.SECONDS)
@@ -67,6 +69,7 @@ class DiModule {
             .addInterceptor(HttpLoggingInterceptor().apply {
                 level = HttpLoggingInterceptor.Level.BODY
             })
+            .addInterceptor(RetryInterceptor(maxRetries = 3))
             .connectTimeout(120, TimeUnit.SECONDS)
             .readTimeout(120, TimeUnit.SECONDS)
             .writeTimeout(120, TimeUnit.SECONDS)
