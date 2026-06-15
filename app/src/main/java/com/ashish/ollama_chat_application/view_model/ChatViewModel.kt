@@ -5,6 +5,7 @@ import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.remember
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.ashish.ollama_chat_application.navigation.UiEvent
 import com.ashish.ollama_chat_application.network.AIResponse
 import com.ashish.ollama_chat_application.network.ChatHistory
 import com.ashish.ollama_chat_application.network.ChatMessage
@@ -15,6 +16,7 @@ import com.ashish.ollama_chat_application.repository.ChatRepository
 import com.ashish.ollama_chat_application.uiState.ChatUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
@@ -28,10 +30,43 @@ class ChatViewModel @Inject constructor() : ViewModel() {
     @Inject
     lateinit var chatRepository: ChatRepository
 
+    private val _uiEvent = MutableStateFlow<UiEvent>(UiEvent.StartScreen)
+    val uiEvent = _uiEvent.asStateFlow()
+
 
     var chatUiState = MutableStateFlow<ChatUiState>(ChatUiState.Initial)
 
     val messages = mutableStateListOf<ChatMessage>()
+
+    fun navigationToChat(){
+        viewModelScope.launch {
+            _uiEvent.emit(UiEvent.NavigationChat)
+        }
+    }
+
+    fun navigationToChatHistory(){
+        viewModelScope.launch {
+            _uiEvent.emit(UiEvent.NavigationChatHistory)
+        }
+    }
+
+    fun navigationToDragonBallZ(){
+        viewModelScope.launch {
+            _uiEvent.emit(UiEvent.NavigationDragonBallZ)
+        }
+    }
+
+    fun navigationStartScreen(){
+        viewModelScope.launch {
+            _uiEvent.emit(UiEvent.StartScreen)
+        }
+    }
+
+    fun navigateToDragonBallZDetail(itemIndex: Int) {
+        viewModelScope.launch {
+            _uiEvent.emit(UiEvent.NavigationDragonBallZDetail(itemIndex))
+        }
+    }
 
     fun sendMessageToAi(request: ChatRequest) {
         viewModelScope.launch {

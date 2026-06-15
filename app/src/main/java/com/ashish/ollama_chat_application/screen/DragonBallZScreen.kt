@@ -32,12 +32,14 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
 import com.ashish.ollama_chat_application.uiState.DragonBallUiState
+import com.ashish.ollama_chat_application.view_model.ChatViewModel
 import com.ashish.ollama_chat_application.view_model.DragonBallZViewModel
 
 @Composable
 fun DragonBallZScreen(
     innerPadding: PaddingValues,
     viewModel: DragonBallZViewModel,
+    chatViewModel: ChatViewModel,
     navController: NavHostController
 ) {
 
@@ -81,7 +83,8 @@ fun DragonBallZScreen(
                                 .fillMaxSize()
                                 .clickable {
                                     viewModel.selectCharacter(item.id)
-                                    navController.navigate("dragon_ball_z_detail/${item.id}")
+//                                    navController.navigate("dragon_ball_z_detail/${item.id}")
+                                    chatViewModel.navigateToDragonBallZDetail(item.id)
                                 },
                         ) {
                             Row {
